@@ -90,7 +90,7 @@ const getHeatMapData = () => {
 
 function App() {
   const [tooltipContent, setTooltipContent] = useState('');
-  const [data, setData] = useState(getHeatMapData());
+  const [data] = useState(getHeatMapData());
 
   const colorScale = scaleQuantile()
     .domain(data.map(d => d.value))
