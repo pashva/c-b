@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { scaleQuantile } from 'd3-scale';
 import ReactTooltip from 'react-tooltip';
-
-import LinearGradient from './LinearGradient.js';
 import './App.css';
 
 /**
@@ -32,9 +30,6 @@ const COLOR_RANGE = [
 COLOR_RANGE.reverse(  )
 const DEFAULT_COLOR = '#EEE';
 
-const getRandomInt = () => {
-  return parseInt(Math.random() * 100);
-};
 
 const geographyStyle = {
   default: {
@@ -97,13 +92,6 @@ function App() {
   const [tooltipContent, setTooltipContent] = useState('');
   const [data, setData] = useState(getHeatMapData());
 
-  const gradientData = {
-    fromColor: COLOR_RANGE[0],
-    toColor: COLOR_RANGE[COLOR_RANGE.length - 1],
-    min: 0,
-    max: data.reduce((max, item) => (item.value > max ? item.value : max), 0)
-  };
-
   const colorScale = scaleQuantile()
     .domain(data.map(d => d.value))
     .range(COLOR_RANGE);
@@ -117,11 +105,6 @@ function App() {
   const onMouseLeave = () => {
     setTooltipContent('');
   };
-
-  const onChangeButtonClick = () => {
-    setData(getHeatMapData());
-  };
-
   return (
     <div className="full-width-height container">
       <h1 className="no-margin center">Our Customers</h1>
