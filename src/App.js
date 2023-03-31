@@ -11,7 +11,7 @@ import './App.css';
 const INDIA_TOPO_JSON = require('./india.topo.json');
 
 const PROJECTION_CONFIG = {
-  scale: (window.innerHeight),
+  scale: 2000,
   center: [78.9629, 22.5937] // always in [East Latitude, North Longitude]
 };
 
@@ -111,12 +111,14 @@ function App() {
     setTooltipContent('');
   };
   return (
-    <div>
+    <div className="full-width-height container">
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
           data-tip=""  
+          height={1200}
+          width={1200}
         >
           <Geographies geography={INDIA_TOPO_JSON}>
             {({ geographies }) =>
@@ -129,6 +131,7 @@ function App() {
                     geography={geo}
                     fill={current ? COLOR_RANGE[getIndex(current.value)] : DEFAULT_COLOR}
                     style={geographyStyle}
+                    
                     stroke="#808080"
                     onMouseEnter={onMouseEnter(geo, current)}
                     onMouseLeave={onMouseLeave}
