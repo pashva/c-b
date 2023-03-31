@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
-import { scaleQuantile } from 'd3-scale';
 import ReactTooltip from 'react-tooltip';
 import './App.css';
 
@@ -12,20 +11,13 @@ import './App.css';
 const INDIA_TOPO_JSON = require('./india.topo.json');
 
 const PROJECTION_CONFIG = {
-  scale: 350,
+  scale: (window.innerHeight+window.innerWidth)*0.5,
   center: [78.9629, 22.5937] // always in [East Latitude, North Longitude]
 };
 
 // Red Variants
 const COLOR_RANGE = [
-  '#FF522D',
-  '#FF6241',
-  '#FF7355',
-  '#FF866C',
-  '#FF9E89',
-  '#FFB8A8',
-  '#FFD1C7',
-  '#FFECE8',
+  '#0f3e85', '#5366a3', '#8792c1', '#bac1e0', '#eef1ff'
 ];
 COLOR_RANGE.reverse(  )
 const DEFAULT_COLOR = '#EEE';
@@ -33,7 +25,7 @@ const DEFAULT_COLOR = '#EEE';
 
 const geographyStyle = {
   default: {
-    outline: 'none'
+    outline: 'black'
   },
   hover: {
     fill: '#ccc',
@@ -61,7 +53,7 @@ const getHeatMapData = () => {
     { id: 'KA', state: 'Karnataka', value: 20 },
     { id: 'KL', state: 'Kerala', value: 0},
     { id: 'MP', state: 'Madhya Pradesh', value: 0 },
-    { id: 'MH', state: 'Maharashtra', value: 20 },
+    { id: 'MH', state: 'Maharashtra', value: 30 },
     { id: 'MN', state: 'Manipur', value: 0 },
     { id: 'ML', state: 'Meghalaya', value: 0 },
     { id: 'MZ', state: 'Mizoram', value: 0 },
@@ -73,9 +65,9 @@ const getHeatMapData = () => {
     { id: 'TN', state: 'Tamil Nadu', value:3 },
     { id: 'TS', state: 'Telangana', value: 3 },
     { id: 'TR', state: 'Tripura', value: 0 },
-    { id: 'UK', state: 'Uttarakhand', value: 1 },
+    { id: 'UK', state: 'Uttarakhand', value: 0 },
     { id: 'UP', state: 'Uttar Pradesh', value: 6 },
-    { id: 'WB', state: 'West Bengal', value: 8 },
+    { id: 'WB', state: 'West Bengal', value: 12 },
     { id: 'AN', state: 'Andaman and Nicobar Islands', value: 0 },
     { id: 'CH', state: 'Chandigarh', value: 1 },
     { id: 'DN', state: 'Dadra and Nagar Haveli', value: 0 },
@@ -92,13 +84,26 @@ function App() {
   const [tooltipContent, setTooltipContent] = useState('');
   const [data] = useState(getHeatMapData());
 
-  const colorScale = scaleQuantile()
-    .domain(data.map(d => d.value))
-    .range(COLOR_RANGE);
-
+  const getIndex = (val)=>{
+    if(val===0){
+      return 0
+    }else if (val>0 && val<6){
+      return 1
+    }else if(val>=6 && val < 14){
+      return 2
+    }else if(val >=14 && val<19){
+      return 3
+    }else{
+      return 4
+    }
+  }
   const onMouseEnter = (geo, current = { value: 'NA' }) => {
     return () => {
-      setTooltipContent(`${geo.properties.name}: ${current.value}`);
+      if(current.value > 1){
+        setTooltipContent(`${geo.properties.name}: ${current.value} orders`);
+      }else{
+        setTooltipContent(`${geo.properties.name}: ${current.value} order`);
+      }
     };
   };
 
@@ -107,14 +112,13 @@ function App() {
   };
   return (
     <div className="full-width-height container">
-      <h1 className="no-margin center">Our Customers</h1>
+      {/* <h1 className="no-margin center">Our Customers</h1> */}
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
-          width={600}
-          height={220}
           data-tip=""
+          
         >
           <Geographies geography={INDIA_TOPO_JSON}>
             {({ geographies }) =>
@@ -125,8 +129,9 @@ function App() {
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={current ? colorScale(current.value) : DEFAULT_COLOR}
+                    fill={current ? COLOR_RANGE[getIndex(current.value)] : DEFAULT_COLOR}
                     style={geographyStyle}
+                    stroke="#808080"
                     onMouseEnter={onMouseEnter(geo, current)}
                     onMouseLeave={onMouseLeave}
                   />
