@@ -118,7 +118,7 @@ function App() {
         height={window.innerHeight}
         width={window.innerWidth}
           projectionConfig={PROJECTION_CONFIG}
-          projection="geoMercator"
+          projection="geoAlbers"
           data-tip=""
           
         >
