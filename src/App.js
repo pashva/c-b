@@ -11,7 +11,7 @@ import './App.css';
 const INDIA_TOPO_JSON = require('./india.topo.json');
 
 const PROJECTION_CONFIG = {
-  scale: (window.innerHeight+window.innerWidth)*0.5,
+  scale: (window.innerHeight)*(window.innerWidth)*0.0010,
   center: [78.9629, 22.5937] // always in [East Latitude, North Longitude]
 };
 
