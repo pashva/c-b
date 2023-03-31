@@ -111,10 +111,9 @@ function App() {
     setTooltipContent('');
   };
   return (
-    <div className="full-width-height container">
-      {/* <h1 className="no-margin center">Our Customers</h1> */}
+    <div style={{position: 'fixed', left: 0, top: -100, height: `100%`, width: `100%`, zIndex:-1}}>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
-      <div style={{position: 'fixed', left: 0, top: -100, height: `100%`, width: `100%`, zIndex:-1}}></div>
+      
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
