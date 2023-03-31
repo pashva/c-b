@@ -12,7 +12,7 @@ const INDIA_TOPO_JSON = require('./india.topo.json');
 
 const PROJECTION_CONFIG = {
   scale: 2000,
-  center: [78.9629, 22.5937] // always in [East Latitude, North Longitude]
+  center: [81.9629, 22.5937] // always in [East Latitude, North Longitude]
 };
 
 // Red Variants
@@ -111,14 +111,15 @@ function App() {
     setTooltipContent('');
   };
   return (
-    <div className="full-width-height container">
+    <div>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
           data-tip=""  
-          height={1200}
-          width={1200}
+          height={1300}
+          width={1300}
+          center
         >
           <Geographies geography={INDIA_TOPO_JSON}>
             {({ geographies }) =>
