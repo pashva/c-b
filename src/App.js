@@ -148,7 +148,7 @@ function App() {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '35px',
+    fontSize: '15px',
     width: window.innerWidth*0.5,
     marginLeft: window.innerWidth*0.2
 }}>
