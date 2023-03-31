@@ -111,15 +111,12 @@ function App() {
     setTooltipContent('');
   };
   return (
-    <div style={{position: 'fixed', left: 0, top: -100, height: `100%`, width: `100%`, zIndex:-1}}>
+    <div>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
-      
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
           data-tip=""  
-          height={window.height}
-          width={window.width}
         >
           <Geographies geography={INDIA_TOPO_JSON}>
             {({ geographies }) =>
