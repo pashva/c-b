@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import ReactTooltip from 'react-tooltip';
 import './App.css';
+import Typewriter from 'typewriter-effect';
+
 
 /**
 * Courtesy: https://rawgit.com/Anujarya300/bubble_maps/master/data/geography-data/india.topo.json
@@ -142,6 +144,26 @@ function App() {
             }
           </Geographies>
         </ComposableMap>  
+        <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '35px',
+    width: window.innerWidth*0.5,
+    marginLeft: window.innerWidth*0.2
+}}>
+        <Typewriter
+        
+        onInit={(typewriter) => {
+          typewriter
+        .pauseFor(500)
+        .typeString('This map depicts our successful orders from all over India. ')
+        .typeString('Grateful for each one of you ❤️')
+        .pauseFor(200)
+        .start();
+        }}
+      />
+        </div>
     </div>
   );
 }
