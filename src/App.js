@@ -28,7 +28,7 @@ const geographyStyle = {
     outline: 'black'
   },
   hover: {
-    fill: '#ccc',
+    fill: '#ffffff',
     transition: 'all 250ms',
     outline: 'none'
   },
@@ -115,6 +115,8 @@ function App() {
       {/* <h1 className="no-margin center">Our Customers</h1> */}
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
+        height={window.innerHeight}
+        width={window.innerWidth}
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
           data-tip=""
